@@ -4,5 +4,6 @@ __license__ = ''
 __copyright__ = ''
 __version__ = '1.0.0'
 
-from .bap import Bap
-from .vc import vc
+__path__ = __import__('pkgutil').extend_path(__path__, __name__)
+
+__all__ = ["generator", "file_creation"]

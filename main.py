@@ -17,7 +17,9 @@ from emojis import Emoji_collection as ec
 """
 TODO:
 
-ADD command to load/unload slash commands or specific command
+- Add custom help command
+- Add custom bot
+- Add custom command generator
 
 """
 
@@ -84,10 +86,10 @@ async def on_ready():
     for file in cogs.cog_list:
         await bot.load_extension(f'cogs.{file}')
 
-
     #bot.change_presence(activity=discord.CustomActivity())
-    #bot.tree.add_command(groups.Bap(bot), guild=my_guild)
-    #await tree.sync(guild=my_guild)
+    tree.add_command(groups.Bap(bot), guild=my_guild)
+    tree.add_command(groups.vc(bot), guild=my_guild)
+    await tree.sync(guild=my_guild)
 
 emoji_collection = ec(bot=bot, guild=my_guild)
 

@@ -2,17 +2,20 @@ import json
 import discord
 from discord.ext import commands
 from discord.types.emoji import Emoji as BuiltEmojis
+import yaml
 
 class Emojis(BuiltEmojis):
     personal: bool
 
 
+# create dectorator for personal option that must be a authorized users
+
 class Emoji_collection():
     def __init__(self, *, bot:commands.Bot, guild:discord.Guild, **kwargs):
         self._bot:commands.Bot = bot
         self._guild:discord.Guild = guild
-        with open("emojis.json", "r") as file:
-            __data:dict = json.load(file)
+        with open("emojis.yaml", "r") as file:
+            __data:dict = yaml.safe_load(file)
             for key, value in __data.items():
                 setattr(self, key, self.create_emoji(value))
 
@@ -25,8 +28,6 @@ class Emoji_collection():
         return tmp
 
     def add_emoji(self, new_emoji):
-        
-        with open("emojis.json", "rw") as file:
-            __data:dict = json.load(file)
+        with open("emojis.json", "+") as file:
+            __data:dict = yaml.safe_load(file)
             
-        
