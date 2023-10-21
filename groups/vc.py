@@ -14,7 +14,7 @@ class vc(app_commands.Group):
     @app_commands.command(name="join", description="joins the VC")
     async def join(self, interaction: discord.Interaction):
         if not interaction.user.voice:
-            await interaction.response.send_message("You are not in a VC")
+            await interaction.response.send_message("You are not in a VC", delete_after=10)
         else:
             if self.vc != None:
                 await interaction.response.send_message("???")
