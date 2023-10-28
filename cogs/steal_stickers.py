@@ -70,7 +70,7 @@ class Steal_Buttons(discord.ui.View):
 
 
 class Stickers(commands.Cog):
-    def __init__(self, bot):
+    def __init__(self, bot:commands.Bot):
         super().__init__()
         self.bot = bot
 
@@ -101,14 +101,15 @@ class Stickers(commands.Cog):
             await ctx.send(f"There are no stickers in the last {amount+1} messages")
     
     @steal.error
-    async def steal_error(self, ctx:commands.Context):
-        pp_fire = 1091493045763047434
+    async def steal_error(self, ctx:commands.Context, error):
+        pp_fire = 1082685676883017799
         emoji = self.bot.get_emoji(pp_fire)
         await ctx.send(f"Who the ***FUCK*** are you??? <:{emoji.name}:{emoji.id}>")
+        await ctx.send("You don't have the correct perms", ephemeral = True)
 
 async def get_image(sticker_data, guild):
     img_bytes = get(sticker_data[0], allow_redirects=True, stream=True).content
-    file_name = f"{sticker_data[3]}.png".replace(" ", "_")
+    file_name = f"{str(sticker_data[3]).replace(' ', '_').replace('.', '-').replace('/', '_')}.png"
     with open(file_name, "wb") as file:
         file.write(img_bytes)
     
